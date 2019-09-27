@@ -56,7 +56,7 @@ public class SpringBootRestApplicationTests {
 	@Test
 	public void testGreetingForAccountAndSizeErrorInRequest() throws Exception {
 		
-		mockMvc.perform(post("/greeting?account=business&type=small"))
+		mockMvc.perform(get("/greeting?account=business&type=small"))
 		.andExpect(status().isNotImplemented());
 		
 	}
@@ -64,15 +64,23 @@ public class SpringBootRestApplicationTests {
 	@Test
 	public void testGreetingForNoAccountAndSize() throws Exception {
 		
-		mockMvc.perform(post("/greeting?account=personal&type=small"))
+		mockMvc.perform(get("/greeting?account=personal&type=small"))
 		.andExpect(status().isNotImplemented());
 		
 	}
 	@Test
 	public void testGreetingForFaultyRequest() throws Exception {
 		
-		mockMvc.perform(post("/greeting?account=persal&type=small"))
+		mockMvc.perform(get("/greeting?account=persal&type=small"))
 		.andExpect(status().isBadRequest());
+		
+	}
+	
+	@Test
+	public void testGreetingForPostRequest() throws Exception {
+		
+		mockMvc.perform(post("/greeting?account=business&type=big"))
+		.andExpect(status().isMethodNotAllowed());
 		
 	}
 	
